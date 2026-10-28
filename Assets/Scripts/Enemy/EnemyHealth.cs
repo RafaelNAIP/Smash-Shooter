@@ -1,5 +1,7 @@
 using UnityEngine;
 
+// LEGADO: substituído por HealthSystem (Combat/). Troque o componente nos prefabs de inimigo
+// e depois delete este script.
 public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 100f;

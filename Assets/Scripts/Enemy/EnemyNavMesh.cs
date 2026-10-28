@@ -15,8 +15,16 @@ public class EnemyNavMesh : MonoBehaviour
     }
     public EnemyState currentState = EnemyState.WayPatrol;
 
+    private KnockbackReceiver knockback;
+
+    void Awake(){
+        knockback = GetComponent<KnockbackReceiver>();
+    }
+
     void Update(){
-    FiniteStateMachine();
+        // Agent desligado enquanto o inimigo está voando após um empurrão.
+        if (knockback != null && knockback.IsAirborne) return;
+        FiniteStateMachine();
     }
     public void ChangeState(EnemyState newState){
         currentState = newState;

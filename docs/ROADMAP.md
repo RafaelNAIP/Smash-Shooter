@@ -8,7 +8,7 @@ Atualizado a cada fase (um commit/branch por fase).
 | Fase | Branch | Status | Entrega |
 | --- | --- | --- | --- |
 | 0 | `main` | ✅ Feito | Scripts atuais organizados em `Assets/Scripts/*` |
-| 1 | `feat/core-mechanics` | ⬜ | HealthSystem + Knockback + DeathZone |
+| 1 | `feat/core-mechanics` | 🟡 Pronto p/ testar no Unity | HealthSystem + Knockback + DeathZone |
 | 2 | `feat/shooting-knockback` | ⬜ | Projétil com empurrão + FSM ranged expandida |
 | 3 | `feat/enemy-melee` | ⬜ | Inimigo melee (FSM) |
 | 4 | `feat/character-select` | ⬜ | 3 personagens, 2 habilidades cada |

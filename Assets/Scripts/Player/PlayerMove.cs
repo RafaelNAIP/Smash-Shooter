@@ -8,6 +8,13 @@ public class PlayerMove : MonoBehaviour
 private float speed = 5;
 public Rigidbody rb;
 private Vector3 direction;
+private KnockbackReceiver knockback;
+
+   void Awake()
+   {
+       knockback = GetComponent<KnockbackReceiver>();
+   }
+
    void Update()
        {
         transform.rotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
@@ -32,6 +39,9 @@ private Vector3 direction;
 
     void FixedUpdate()
     {
+        // Durante o empurrão o jogador perde o controle (senão a velocidade do WASD anula o knockback).
+        if (knockback != null && knockback.IsStunned) return;
+
         rb.linearVelocity = new Vector3(direction.x * speed,  
         rb.linearVelocity.y, direction.z * speed);      
        }

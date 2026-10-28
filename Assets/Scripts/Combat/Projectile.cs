@@ -4,6 +4,7 @@ public class Projectile : MonoBehaviour
 {
     public float speed = 10f; 
     public float damage = 25f;
+    public float knockbackForce = 8f;
     private Vector3 direction; 
     private ShootPool Shootpool; 
 
@@ -22,10 +23,18 @@ public class Projectile : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
     void OnCollisionEnter(Collision collision)
-    {     
-        EnemyHealth enemy = collision.gameObject.GetComponent<EnemyHealth>();
-        if (enemy != null) {
-            enemy.TakeDamage(damage);
+    {
+        GameObject attacker = Shootpool != null ? Shootpool.transform.root.gameObject : null;
+
+        HealthSystem health = collision.collider.GetComponentInParent<HealthSystem>();
+        if (health != null) {
+            health.TakeDamage(damage, attacker);
+            KnockbackReceiver kb = health.GetComponent<KnockbackReceiver>();
+            if (kb != null) kb.ApplyKnockback(direction, knockbackForce);
+        } else {
+            // Compatibilidade: inimigos que ainda usam o EnemyHealth antigo.
+            EnemyHealth legacy = collision.gameObject.GetComponent<EnemyHealth>();
+            if (legacy != null) legacy.TakeDamage(damage);
         }
         CancelInvoke("SpawnTime");
         Shootpool.ReturnProjectile(gameObject);
